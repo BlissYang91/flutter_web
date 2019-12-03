@@ -55,7 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Builder(builder: (BuildContext context) {
         return WebView(
-          initialUrl: 'http://192.168.1.114/dyy_my_product?source=Android',
+          initialUrl: 'http://192.168.1.110:1024/dyy_my_product?source=Android',
+//          initialUrl: 'http://test-keep.kuaizaixuetang.com/dyy_my_product?source=Android',
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController){
             _controller.complete(webViewController);
@@ -74,33 +75,35 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
            child: const Icon(Icons.add),
           onPressed: (){
-             _webViewController.evaluateJavascript('callJS()');
+             _webViewController.evaluateJavascript('callJSFunction("kkk")');
+//             showToast("calljs");
+             print("callJSFunction执行");
           }
       ),
     );
 
   }
-  Widget jsButton(){
-    return FutureBuilder<WebViewController>(
-      future: _controller.future,
-      builder: (BuildContext context,
-          AsyncSnapshot<WebViewController> controller){
-        if(controller.hasData){
-          return FloatingActionButton(
-            onPressed: () async{
-              _controller.future.then((controller){
-                controller.evaluateJavascript('callJS()');
-//                    .then((result){});
-              });
-
-            },
-            child: Text('Flutter Call JS'),
-          );
-        }
-        return Container();
-      },
-    );
-  }
+//  Widget jsButton(){
+//    return FutureBuilder<WebViewController>(
+//      future: _controller.future,
+//      builder: (BuildContext context,
+//          AsyncSnapshot<WebViewController> controller){
+//        if(controller.hasData){
+//          return FloatingActionButton(
+//            onPressed: () async{
+//              _controller.future.then((controller){
+//                controller.evaluateJavascript('callJS()');
+////                    .then((result){});
+//              });
+//
+//            },
+//            child: Text('Flutter Call JS'),
+//          );
+//        }
+//        return Container();
+//      },
+//    );
+//  }
 
   JavascriptChannel _toasterJavascriptChannel(BuildContext context) {
       return JavascriptChannel(
